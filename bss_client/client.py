@@ -51,9 +51,11 @@ class BSSClient(object):
         rsp = req.request('GET', '/account')
         return self._handle_json_response(rsp)
 
-    def get_catalog(self, catalog_uuid):
+    def get_subscription(self, subscription_uuid, expand=None):
         req = self.create_request()
-        rsp = req.request('GET', '/subscriptions/{0}'.format(catalog_uuid))
+        if expand:
+            req.add_param('expand', expand)
+        rsp = req.request('GET', '/subscriptions/{0}'.format(subscription_uuid))
         return self._handle_json_response(rsp)
 
     def create_subscription(self, configurationdata, context, productbundleid,
