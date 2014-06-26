@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/globocom/python-bss-client.svg?branch=master)](https://travis-ci.org/globocom/python-bss-client)
+
 # CPBM BSS API Client
 
 ­CloudPortal™ Business Manager (CPBM) Business Support System (BSS) API Client
