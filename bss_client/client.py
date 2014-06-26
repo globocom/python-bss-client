@@ -18,9 +18,9 @@ class BSSClient(object):
                        **self.requests_params)
 
     def _handle_json_response(self, rsp):
-        if rsp.status_code != 200:
-            raise BSSError(rsp.status_code, rsp.text)
-        return rsp.json()
+        if 200 <= rsp.status_code < 300:
+            return rsp.json()
+        raise BSSError(rsp.status_code, rsp.text)
 
     def list_services(self, category=None):
         req = self.create_request()
@@ -38,7 +38,6 @@ class BSSClient(object):
 
     def list_subscriptions(self):
         req = self.create_request()
-        req.add_param('expand', 1)
         rsp = req.request('GET', '/subscriptions')
         return self._handle_json_response(rsp)
 
@@ -50,4 +49,22 @@ class BSSClient(object):
     def get_account(self):
         req = self.create_request()
         rsp = req.request('GET', '/account')
+        return self._handle_json_response(rsp)
+
+    def get_catalog(self, catalog_uuid):
+        req = self.create_request()
+        rsp = req.request('GET', '/subscriptions/{0}'.format(catalog_uuid))
+        return self._handle_json_response(rsp)
+
+    def create_subscription(self, configurationdata, context, productbundleid,
+                            resourcetype, serviceinstanceuuid, tenantparam):
+        req = self.create_request()
+        req.add_param('provision', 'true')
+        req.add_param('configurationdata', configurationdata)
+        req.add_param('context', context)
+        req.add_param('productbundleid', productbundleid)
+        req.add_param('resourcetype', resourcetype)
+        req.add_param('serviceinstanceuuid', serviceinstanceuuid)
+        req.add_param('tenantparam', tenantparam)
+        rsp = req.request('POST', '/subscriptions')
         return self._handle_json_response(rsp)
