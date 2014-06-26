@@ -57,7 +57,7 @@ class BSSClient(object):
         return self._handle_json_response(rsp)
 
     def create_subscription(self, configurationdata, context, productbundleid,
-                            resourcetype, serviceinstanceuuid, tenantparam):
+                            resourcetype, serviceinstanceuuid, tenantparam=None):
         req = self.create_request()
         req.add_param('provision', 'true')
         req.add_param('configurationdata', configurationdata)
@@ -65,6 +65,8 @@ class BSSClient(object):
         req.add_param('productbundleid', productbundleid)
         req.add_param('resourcetype', resourcetype)
         req.add_param('serviceinstanceuuid', serviceinstanceuuid)
+        if not tenantparam:
+            tenantparam = self.get_account()['account']['uuid']
         req.add_param('tenantparam', tenantparam)
         rsp = req.request('POST', '/subscriptions')
         return self._handle_json_response(rsp)
