@@ -25,7 +25,7 @@ With high-level API wrapper
 ```python
 from bss_client import BSSClient
 
-endpoint = 'http://myhost.com'
+endpoint = 'http://myhost.com/portal/api'
 key = 'my api key'
 secret = 'my api secret'
 
