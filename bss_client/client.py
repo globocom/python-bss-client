@@ -72,3 +72,8 @@ class BSSClient(object):
         req.add_param('tenantparam', tenantparam)
         rsp = req.request('POST', '/subscriptions')
         return self._handle_json_response(rsp)
+
+    def delete_subscription(self, subscription_uuid):
+        req = self.create_request()
+        rsp = req.request('DELETE', '/subscriptions/{0}'.format(subscription_uuid))
+        return self._handle_json_response(rsp)

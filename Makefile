@@ -1,6 +1,6 @@
 test:
 	@py.test -s .
-	@flake8 .
+	@flake8 --max-line-length=110 .
 
 setup:
 	pip install -e .[tests]
