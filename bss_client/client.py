@@ -19,7 +19,9 @@ class BSSClient(object):
 
     def _handle_json_response(self, rsp):
         if 200 <= rsp.status_code < 300:
-            return rsp.json()
+            if rsp.text:
+                return rsp.json()
+            return ''
         raise BSSError(rsp.status_code, rsp.text)
 
     def list_services(self, category=None):
