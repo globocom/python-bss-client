@@ -12,7 +12,7 @@ setup(
     author_email="tsuru@corp.globo.com",
     include_package_data=True,
     install_requires=[
-        "requests==2.3.0"
+        "requests==2.20.0"
     ],
     extras_require={
         'tests': [
